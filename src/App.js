@@ -201,35 +201,35 @@ export default function App() {
         Not: Görevi tamamlamak için *sadece* aşağıdaki return deyiminin içine küçük bir kod yazmanız gerekmektedir. Bu veya başka bir dosyada yazmanız gereken başka bir kod yok
 */
 
-  return (
-    <div className='wrapper'>
-      <h1>Mat-a-Matik</h1>
-      {isHydrated && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            <div className='problem-container'>{mathProblem.string}</div>
-            <input
-              type='number'
-              name='value'
-              placeholder='?'
-              onChange={updateResponse}
-              value={currentResponse}
-              className={inputClass}
-              autoComplete='off'
-              required
-            />
-          </label>
+return (
+  <div className='wrapper'>
+    {!gameStarted && <h1>Mat-a-Matik</h1>}
+    {isHydrated && (
+      <form onSubmit={handleSubmit}>
+        <label>
+        {gameStarted && <div className={'problem-container'}>{mathProblem.string}</div>}
+          <input
+            type='number'
+            name='value'
+            placeholder='?'
+            onChange={updateResponse}
+            value={currentResponse}
+            className={inputClass}
+            autoComplete='off'
+            required
+          />
+        </label>
 
-          <div className={`message-container ${messageClass}`}>
-            {answerStatus}
-          </div>
+        <div className={`message-container ${messageClass}`}>
+          {recentStatusChange && answerStatus}
+        </div>
 
-          <div className='button-container'>
-            {gamePlayButtons}
-            {startButton}
-          </div>
-        </form>
-      )}
-    </div>
-  )
+        <div className='button-container'>
+          {gameStarted && gamePlayButtons}
+          {!gameStarted && startButton}
+        </div>
+      </form>
+    )}
+  </div>
+)
 }
